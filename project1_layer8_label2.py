@@ -453,6 +453,19 @@ for model_name, model in classification_models:
     #print(f"Recall: {recall:.2f}")
     #print("\n")
 
+num_features = pca_train_result.shape[1]
+print(f"Number of features: {num_features}\n")
+
+from sklearn.model_selection import cross_val_score
+# K-fold cross-validation
+k = 5  # Number of folds for cross-validation
+for model_name, model in classification_models:
+    print(f"Model: {model_name}")
+    scores = cross_val_score(model, pca_train_result, train_label1, cv=k, scoring='accuracy')
+    print(f"Cross-validated accuracy: {scores}")
+    print(f"Mean accuracy: {scores.mean():.2f}")
+    print("\n")
+
 import numpy as np
 import pandas as pd
 
